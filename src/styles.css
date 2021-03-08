@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou&display=swap');
+@import "~@fortawesome/fontawesome-free/css/fontawesome.min.css";
+@import "~@fortawesome/fontawesome-free/css/solid.min.css";
+
+html, body {
+  height: 100%;
+  color: white;
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  text-transform: uppercase;
+}
+
+body {
+  background: #DA4453;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #89216B, #DA4453);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #89216B, #DA4453); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+h1, h5 {
+  padding: 15px;
+  letter-spacing: 5px;
+}
+
+.time-container {
+  margin: auto;
+  width: 200px;
+  letter-spacing: 5px;
+}
+
+.time-container hr {
+  margin-top: 0px;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.time-container #time-left {
+  font-size: 75px;
+}
+
+.time-container #timer-label {
+  font-size: 20px;
+}
+
+.times-container {
+  margin: auto;
+  max-width: 400px;
+}
+
+.spaced-label {
+  letter-spacing: 5px;
+}
+
+button, a {
+ padding: 5px;
+ line-height: 0;
+ color: inherit;
+ background: none;
+ border: none;
+ outline: none!important;
+ transition: color .2s;
+}
+
+button:hover, a:hover {
+  color: rgba( #fff, .6);
+}
+
+button:active, a:active {
+ color: rgba(#fff, .3);
+}
+
+footer {
+  font-size: 14px;
+  letter-spacing: 3px;
+}
