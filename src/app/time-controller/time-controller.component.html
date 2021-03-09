@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-around align-items-center">
-  <button aria-label="Play/Pause" type="button">
-    <i class="fas fa-pause"></i>
+  <button (click)="switchState()" aria-label="Play/Pause" type="button">
+    <i class="fas" [ngClass]="{'fa-pause': timeService.state === State.Running, 'fa-play' : timeService.state === State.Stop}"></i>
   </button>
-  <span id="timer-label">...</span>
-  <button aria-label="Restart"type="button"><i class="fas fa-history"></i></button>
+  <span id="timer-label">{{ Type[timeService.type] }}</span>
+  <button (click)="reset()" aria-label="Restart"type="button"><i class="fas fa-history"></i></button>
 </div>
