@@ -2,10 +2,22 @@
   <div class="col-12 mb-3"><h5>Times</h5></div>
   <div class="col-6 border-right">
     <span class="spaced-label">Session</span>
-    <span><app-time-input></app-time-input></span>
+    <span>
+      <app-time-input
+        (onIncrement)="timeService.incrementSessionDuration()"
+        (onDecrement)="timeService.decrementSessionDuration()" 
+        [time]="timeService.sessionDuration" 
+      ></app-time-input>
+    </span>
   </div>
   <div class="col-6">
     <span class="spaced-label">Break</span>
-    <span><app-time-input></app-time-input></span>
+    <span>
+      <app-time-input
+        (onIncrement)="timeService.incrementBreakDuration()"
+        (onDecrement)="timeService.decrementBreakDuration()" 
+        [time]="timeService.breakDuration" 
+      ></app-time-input>
+    </span>
   </div>
 </div>

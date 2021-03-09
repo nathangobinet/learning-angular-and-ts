@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-time-box',
   templateUrl: './time-box.component.html',
 })
-export class TimeBoxComponent implements OnInit {
+export class TimeBoxComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

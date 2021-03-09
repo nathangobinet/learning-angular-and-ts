@@ -20,67 +20,81 @@ export class TimeService {
   };
 
   // Store the window interval id to clear it
-  interval: number = 0;
+  interval!: number;
 
+  // Application states
   state: State = State.Stop;
   type: Type =  Type.Session;
 
-  sessionDuration : number = TimeService.defaultDuration.session;
-  breakDuration : number = TimeService.defaultDuration.break;
+  private _sessionDuration : number = TimeService.defaultDuration.session;
+  get sessionDuration() : number { return this._sessionDuration; }
+  set sessionDuration(value : number) { 
+    this._sessionDuration = value;
+    if (this.state === State.Stop && this.type === Type.Session)
+      this.remainingSeconds = value;
+  }
+
+  private _breakDuration : number = TimeService.defaultDuration.break;
+  get breakDuration() : number { return this._breakDuration; }
+  set breakDuration(value : number) { 
+    this._breakDuration = value;
+    if (this.state === State.Stop && this.type === Type.Break)
+      this.remainingSeconds = value;
+  }
 
   private _remainingSeconds: number = this.sessionDuration;
   get remainingSeconds() : number { return this._remainingSeconds; }
   set remainingSeconds(value : number) {
     this._remainingSeconds = value;
-    // Trigger event
-    this.remainingUpdated.next(this.remainingSeconds);
-    // Check for timer end
     if(this.remainingSeconds == 0) 
       this.handleTimerEnd()
   }
 
-  remainingUpdated : Subject<number> = new Subject<number>();
+  constructor() { }
 
-  constructor() {this.play()}
-
-  play() : void {
-    this.state = State.Running;
-    this.interval = window.setInterval(() => this.decrementRemaingTime(), 1000);
+  public switchState() : void {
+    if(this.state == State.Running) this.stop();
+    else this.play();
   }
 
-  stop() : void {
-    this.state = State.Stop;
-    window.clearInterval(this.interval);
-  }
-
-  reset() : void {
+  public reset() : void {
     if(this.state == State.Running) this.stop();
     this.remainingSeconds = this.getDuration();
   }
 
-  decrementRemaingTime() : void {
-    this.remainingSeconds -= 1;
-  }
-
-  handleTimerEnd() : void {
-    this.type = this.getNewType();
-    this.remainingSeconds = this.getDuration();
-  }
-
-  getNewType() : Type {
-    return (this.type == Type.Session) 
-      ? Type.Break 
-      : Type.Session;
-  }
-
-  getDuration() : number {
+  private getDuration() : number {
     return (this.type == Type.Session) 
       ? this.sessionDuration
       : this.breakDuration;
   } 
 
-  switchState() : void {
-    if(this.state == State.Running) this.stop();
-    else this.play();
+  public play() : void {
+    this.state = State.Running;
+    this.interval = window.setInterval(() => this.decrementRemaingTime(), 1000);
   }
+
+  public stop() : void {
+    this.state = State.Stop;
+    window.clearInterval(this.interval);
+  }
+
+  private decrementRemaingTime() : void {
+    this.remainingSeconds -= 1;
+  }
+
+  private handleTimerEnd() : void {
+    this.type = this.getNewType();
+    this.remainingSeconds = this.getDuration();
+  }
+
+  private getNewType() : Type {
+    return (this.type == Type.Session) 
+      ? Type.Break 
+      : Type.Session;
+  }
+
+  public incrementSessionDuration() : void { this.sessionDuration += 60 }
+  public incrementBreakDuration() : void { this.breakDuration += 60 }
+  public decrementSessionDuration() : void { this.sessionDuration -= 60 }
+  public decrementBreakDuration() : void { this.breakDuration -= 60 }
 }
