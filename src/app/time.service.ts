@@ -85,12 +85,20 @@ export class TimeService {
   private handleTimerEnd() : void {
     this.type = this.getNewType();
     this.remainingSeconds = this.getDuration();
+    this.playBeep()
   }
 
   private getNewType() : Type {
     return (this.type == Type.Session) 
       ? Type.Break 
       : Type.Session;
+  }
+
+  private playBeep() {
+    let audio = new Audio();
+    audio.src = "https://raw.githubusercontent.com/nathangobinet/podomoroclock/master/ressources/beep4.wav";
+    audio.load();
+    audio.play();
   }
 
   public incrementSessionDuration() : void { this.sessionDuration += 60 }
