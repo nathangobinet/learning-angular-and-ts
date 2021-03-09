@@ -59,11 +59,11 @@ button, a {
 }
 
 button:hover, a:hover {
-  color: rgba( #fff, .6);
+  color: rgba(255, 255, 255, .6);
 }
 
 button:active, a:active {
- color: rgba(#fff, .3);
+  color: rgba(255, 255, 255, .3);
 }
 
 footer {
